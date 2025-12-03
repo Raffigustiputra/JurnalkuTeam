@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jurnalku_tw/jurnal_pembiasan.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
-import 'package:jurnalku_tw/progresbelajar_page.dart';
 
 void main() {
   runApp(const MyApp());
