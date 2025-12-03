@@ -31,6 +31,27 @@ class _PermintaanSaksiState extends State<PermintaanSaksi> {
   static const String _profileImagePath = 'assets/images/profile.png';
   String? today;
 
+  List<Map<String, dynamic>> requests = [
+    {
+      "pengirim": "Rizky Ramadhan",
+      "tanggal": DateTime(2025, 1, 12),
+      "kelas": "XII-4",
+      "alasan": "Diperlukan saksi pada pelanggaran keterlambatan.",
+    },
+    {
+      "pengirim": "Salsa Oktaviani",
+      "tanggal": DateTime(2025, 1, 11),
+      "kelas": "XI-3",
+      "alasan": "Saksi proyek ujikom.",
+    },
+    {
+      "pengirim": "Bagus Rendra",
+      "tanggal": DateTime(2025, 1, 8),
+      "kelas": "X-2",
+      "alasan": "Diperlukan saksi pada kegiatan eskul.",
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -44,48 +65,163 @@ class _PermintaanSaksiState extends State<PermintaanSaksi> {
     });
   }
 
-  PreferredSizeWidget _buildCustomAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: GestureDetector(
-        onTap: () => Navigator.pop(context),
-        child: Row(
-          children: const [
-            SizedBox(width: 12),
-            Icon(Icons.home, size: 24, color: Colors.black45),
-            SizedBox(width: 6),
+  @override
+  Widget build(BuildContext context) {
+    if (today == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: _customAppBar(),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // TITLE
+            Text(
+              "Permintaan Saksi",
+              style: GoogleFonts.poppins(
+                fontSize: 26,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              "Kelola permintaan menjadi saksi dari siswa lain",
+              style: TextStyle(fontSize: 15, color: Colors.black54),
+            ),
+            const SizedBox(height: 20),
+
+            _dateBadge(),
+            const SizedBox(height: 30),
+
+            _tableHeader(),
+            const SizedBox(height: 12),
+
+            ...requests.map((e) => _expansionRow(e)).toList(),
           ],
         ),
       ),
-      leadingWidth: 150,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
-              Text(
-                'Raffi Gusti Putra',
-                style: TextStyle(color: Colors.black, fontSize: 16),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'PPLG XII-5',
-                style: TextStyle(color: Color(0xFF8D8F93), fontSize: 12),
-              ),
-            ],
-          ),
-          const SizedBox(width: 10),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 1),
+    );
+  }
+
+  // ---------------------------------------------------
+  // APP BAR CUSTOM
+  // ---------------------------------------------------
+  PreferredSizeWidget _customAppBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(55),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: Colors.black12, width: 0.6)),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 22),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Breadcrumb
+            Row(
+              children: [
+                const Icon(Icons.home_outlined, size: 18, color: Colors.black45),
+                const SizedBox(width: 6),
+                const Icon(Icons.chevron_right, size: 18, color: Colors.black38),
+                const SizedBox(width: 6),
+                Builder(
+                  builder: (context) {
+                    if (MediaQuery.of(context).size.width < 500) {
+                      return const SizedBox.shrink();
+                    }
+                    return const Text(
+                      "Permintaan Saksi",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-            child: ClipOval(
-              child: Image.asset(_profileImagePath, fit: BoxFit.cover),
+
+            // Profile
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Raffi Gusti Putra",
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      "PPLG XII-5",
+                      style: GoogleFonts.poppins(
+                        fontSize: 10.5,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 8),
+                CircleAvatar(
+                  radius: 15,
+                  backgroundImage: AssetImage(_profileImagePath),
+                ),
+                const SizedBox(width: 4),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ---------------------------------------------------
+  // BADGE TANGGAL
+  // ---------------------------------------------------
+  Widget _dateBadge() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE5EDFF),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        today!,
+        style: const TextStyle(
+          color: Color(0xFF2563EB),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  // ---------------------------------------------------
+  // HEADER TABLE
+  // ---------------------------------------------------
+  Widget _tableHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+      decoration: BoxDecoration(
+        color: const Color(0xFe2e8f0),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: _headerText("PENGIRIM", TextAlign.left)),
+          Expanded(child: _headerText("TANGGAL", TextAlign.center)),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: _headerText("DETAILS", TextAlign.right),
             ),
           ),
         ],
@@ -93,148 +229,129 @@ class _PermintaanSaksiState extends State<PermintaanSaksi> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Tampilkan loading kalau today belum siap
-    if (today == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
+  Widget _headerText(String text, TextAlign align) {
+    return Text(
+      text,
+      textAlign: align,
+      style: const TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 13,
+        color: Color(0xFF374151),
+      ),
+    );
+  }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: _buildCustomAppBar(context),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Permintaan Saksi",
-              style: GoogleFonts.poppins(
-                fontSize: 26,
-                fontWeight: FontWeight.w700, // lebih bold dari bold
-                color: Colors.black,
-              ),
-            ),
+  // ---------------------------------------------------
+  // EXPANSION TILE
+  // ---------------------------------------------------
+  Widget _expansionRow(Map data) {
+    final tgl = DateFormat('dd MMM yyyy', 'id_ID').format(data["tanggal"]);
 
-            const SizedBox(height: 4),
-            const Text(
-              "Kelola permintaan menjadi saksi dari siswa lain",
-              style: TextStyle(fontSize: 16, color: Color(0xFF4b5563)),
-            ),
-            const SizedBox(height: 20),
-            // ===== Date Badge =====
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE5EDFF),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                today!,
-                style: const TextStyle(
-                  color: Color(0xFF2563EB),
-                  fontWeight: FontWeight.w600,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          iconColor: Colors.blue[600],
+          collapsedIconColor: Colors.black54,
+          tilePadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 6, 16, 12),
+
+          title: Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Text(
+                  data["pengirim"],
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            // Card section bisa lanjutkan sama seperti sebelumnya
-            // ===== Card Section =====
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
+              Expanded(
+                flex: 4,
+                child: Center(
+                  child: Text(
+                    tgl,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      color: Colors.black54,
+                    ),
                   ),
-                ],
+                ),
               ),
-              child: Column(
-                children: [
-                  // Header Table
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 14,
-                      horizontal: 16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF2F4F7), // abu-abu muda lembut
-                      borderRadius: BorderRadius.circular(
-                        8,
-                      ), // opsional biar lembut
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Expanded(
-                          child: Text(
-                            "PENGIRIM",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "TANGGAL",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "KONFIRMASI",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              const Expanded(flex: 1, child: SizedBox.shrink()),
+            ],
+          ),
 
-                  const SizedBox(height: 20),
+          children: [
+            const SizedBox(height: 4),
+            _detailRow("Kelas", data["kelas"]),
+            const SizedBox(height: 6),
+            _detailRow("Keterangan", data["alasan"]),
+            const SizedBox(height: 14),
 
-                  // Empty State
-                  Column(
-                    children: const [
-                      Icon(
-                        Icons.group_outlined,
-                        size: 50,
-                        color: Color(0xFFB0B3B8),
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        "Belum ada permintaan",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "Belum ada yang mengirim permintaan saksi kepada Anda",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 13, color: Colors.black54),
-                      ),
-                      SizedBox(height: 24),
-                    ],
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                Expanded(child: _actionBtn("Tolak", Colors.red)),
+                const SizedBox(width: 8),
+                Expanded(child: _actionBtn("Terima", Colors.green)),
+              ],
             ),
+
+            const SizedBox(height: 6),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "$label:",
+          style: GoogleFonts.poppins(
+            fontSize: 13.5,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          value,
+          style: GoogleFonts.poppins(
+            fontSize: 13,
+            color: Colors.black54,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _actionBtn(String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: color.withOpacity(.12),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Text(
+          label,
+          style: GoogleFonts.poppins(
+            color: color,
+            fontSize: 13.5,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

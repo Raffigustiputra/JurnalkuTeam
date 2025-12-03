@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jurnalku_tw/jurnal_pembiasan.dart';
+import 'package:jurnalku_tw/permintaan_saksi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jurnalku Team Work',
       debugShowCheckedModeBanner: false,
-      home: JurnalPembiasan(),
+      home: PermintaanSaksi(),
     );
         }
 }
