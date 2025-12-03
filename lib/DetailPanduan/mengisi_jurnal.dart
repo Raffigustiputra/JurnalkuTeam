@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
 
 class MengisiJurnal extends StatelessWidget {
   const MengisiJurnal({super.key});
@@ -119,11 +118,11 @@ class MengisiJurnal extends StatelessWidget {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                     children: [
                       TextSpan(
-                        text: "Panduan Penggunaan \n",
+                        text: "Panduan Penggunaan ",
                         style: TextStyle(color: Colors.blue),
                       ),
                       TextSpan(
-                        text: "Mengisi Jurnal",
+                        text: "Mengisi \n Jurnal",
                         style: TextStyle(color: Colors.blue.shade700),
                       ),
                     ],

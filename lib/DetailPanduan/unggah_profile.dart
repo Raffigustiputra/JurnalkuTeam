@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
+
 
 class UnggahProfilePage extends StatelessWidget {
   const UnggahProfilePage({super.key});
@@ -121,11 +121,11 @@ class UnggahProfilePage extends StatelessWidget {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                     children: [
                       TextSpan(
-                        text: "Panduan Penggunaan\n",
+                        text: "Panduan Penggunaan ",
                         style: TextStyle(color: Colors.blue),
                       ),
                       TextSpan(
-                        text: "Unggah Profile",
+                        text: "Unggah \n Profile",
                         style: TextStyle(color: Colors.blue.shade700),
                       ),
                     ],

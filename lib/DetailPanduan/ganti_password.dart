@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
 
 class GantiPassword extends StatelessWidget {
   const GantiPassword({super.key});
@@ -122,11 +121,11 @@ class GantiPassword extends StatelessWidget {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                     children: [
                       TextSpan(
-                        text: "Panduan Penggunaan\n",
+                        text: "Panduan Penggunaan ",
                         style: TextStyle(color: Colors.blue),
                       ),
                       TextSpan(
-                        text: "Ganti Password",
+                        text: "Ganti \n Password",
                         style: TextStyle(color: Colors.blue.shade700),
                       ),
                     ],
