@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class PermintaanSaksi extends StatefulWidget {
 }
 
 class _PermintaanSaksiState extends State<PermintaanSaksi> {
-  static const String _profileImagePath = 'assets/images/profile.png';
+  // static const String _profileImagePath = 'assets/images/profile.png';
   String? today;
 
   List<Map<String, dynamic>> requests = [
@@ -73,7 +74,8 @@ class _PermintaanSaksiState extends State<PermintaanSaksi> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: _customAppBar(),
+      appBar: DropdownAppbar(title: "Permintaan Saksi",),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Column(
@@ -107,83 +109,7 @@ class _PermintaanSaksiState extends State<PermintaanSaksi> {
     );
   }
 
-  // ---------------------------------------------------
-  // APP BAR CUSTOM
-  // ---------------------------------------------------
-  PreferredSizeWidget _customAppBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(55),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(color: Colors.black12, width: 0.6)),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 22),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Breadcrumb
-            Row(
-              children: [
-                const Icon(Icons.home_outlined, size: 18, color: Colors.black45),
-                const SizedBox(width: 6),
-                const Icon(Icons.chevron_right, size: 18, color: Colors.black38),
-                const SizedBox(width: 6),
-                Builder(
-                  builder: (context) {
-                    if (MediaQuery.of(context).size.width < 500) {
-                      return const SizedBox.shrink();
-                    }
-                    return const Text(
-                      "Permintaan Saksi",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-
-            // Profile
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Raffi Gusti Putra",
-                      style: GoogleFonts.poppins(
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      "PPLG XII-5",
-                      style: GoogleFonts.poppins(
-                        fontSize: 10.5,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 8),
-                CircleAvatar(
-                  radius: 15,
-                  backgroundImage: AssetImage(_profileImagePath),
-                ),
-                const SizedBox(width: 4),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
+  
   // ---------------------------------------------------
   // BADGE TANGGAL
   // ---------------------------------------------------

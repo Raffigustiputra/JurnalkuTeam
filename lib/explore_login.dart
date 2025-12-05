@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
-import 'package:jurnalku_tw/dashboard.dart';
+import 'package:jurnalku_tw/login.dart';
 
-class ExplorePage extends StatelessWidget {
+class ExploreLogin extends StatelessWidget {
   // Warna utama
   final Color primaryColor = const Color(0xFF02398C);
 
-  const ExplorePage({super.key});
+  const ExploreLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ExplorePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Dashboard()),
+                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -48,7 +48,7 @@ class ExplorePage extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                "Dashboard",
+                "Login",
                 style: TextStyle(color: Colors.white),
               ),
             ),

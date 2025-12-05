@@ -1,7 +1,95 @@
 import 'package:flutter/material.dart';
 
-class ProgresBelajarPage extends StatelessWidget {
+class ProgresBelajarPage extends StatefulWidget {
   const ProgresBelajarPage({super.key});
+
+  @override
+  State<ProgresBelajarPage> createState() => _ProgresBelajarPageState();
+}
+
+class _ProgresBelajarPageState extends State<ProgresBelajarPage> {
+  final Map<String, bool> _expanded = {
+    "Project Work": false,
+    "Mobile Apps": false,
+    "UKK (Uji Kompetensi Keahlian)": false,
+    "GIM": false,
+  };
+
+  // Dummy data (masing-masing 2 data)
+  final Map<String, List<Map<String, String>>> progressData = {
+    "Project Work": [
+      {
+        "KOMPETENSI": "Membuat Aplikasi CRUD",
+        "GURU": "Pak Budi",
+        "TANGGAL": "20 November 2025",
+        "STATUS": "Selesai",
+        "CATATAN GURU": "Sudah sangat baik, pertahankan!",
+        "CATATAN SISWA": "Belajar banyak tentang logika dan database.",
+      },
+      {
+        "KOMPETENSI": "Membangun API Laravel",
+        "GURU": "Bu Ani",
+        "TANGGAL": "22 November 2025",
+        "STATUS": "Dalam Revisi",
+        "CATATAN GURU": "Perbaiki struktur endpoint.",
+        "CATATAN SISWA": "Masih memahami bagian autentikasi.",
+      },
+    ],
+    "Mobile Apps": [
+      {
+        "KOMPETENSI": "Membuat UI Flutter",
+        "GURU": "Pak Eko",
+        "TANGGAL": "25 November 2025",
+        "STATUS": "Berjalan",
+        "CATATAN GURU": "Desain sudah rapi.",
+        "CATATAN SISWA": "Belajar layout dan widget.",
+      },
+      {
+        "KOMPETENSI": "Implementasi State Management",
+        "GURU": "Bu Rani",
+        "TANGGAL": "27 November 2025",
+        "STATUS": "Selesai",
+        "CATATAN GURU": "Sudah memahami konsep provider.",
+        "CATATAN SISWA": "Belajar hal baru yang menarik.",
+      },
+    ],
+    "UKK (Uji Kompetensi Keahlian)": [
+      {
+        "KOMPETENSI": "Membuat Sistem Penjualan",
+        "GURU": "Bu Rina",
+        "TANGGAL": "28 November 2025",
+        "STATUS": "Berjalan",
+        "CATATAN GURU": "Masih dalam proses pengerjaan.",
+        "CATATAN SISWA": "Menunggu validasi data penjualan.",
+      },
+      {
+        "KOMPETENSI": "Analisis Kebutuhan Sistem",
+        "GURU": "Pak Taufik",
+        "TANGGAL": "29 November 2025",
+        "STATUS": "Selesai",
+        "CATATAN GURU": "Analisis sudah lengkap.",
+        "CATATAN SISWA": "Mempelajari banyak hal baru.",
+      },
+    ],
+    "GIM": [
+      {
+        "KOMPETENSI": "Mendesain Karakter 2D",
+        "GURU": "Pak Fajar",
+        "TANGGAL": "27 November 2025",
+        "STATUS": "Selesai",
+        "CATATAN GURU": "Hasil bagus dan kreatif.",
+        "CATATAN SISWA": "Senang bisa mendesain dengan Photoshop.",
+      },
+      {
+        "KOMPETENSI": "Membuat Game Simple di Unity",
+        "GURU": "Bu Sinta",
+        "TANGGAL": "29 November 2025",
+        "STATUS": "Berjalan",
+        "CATATAN GURU": "Pelajari script logic lagi.",
+        "CATATAN SISWA": "Masih adaptasi dengan Unity.",
+      },
+    ],
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +167,7 @@ class ProgresBelajarPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
+            // tanggal
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
@@ -86,7 +175,7 @@ class ProgresBelajarPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(
-                "Thursday, 20 November 2025",
+                "Thursday, 4 Desember 2025",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -96,91 +185,67 @@ class ProgresBelajarPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
+            // 4 info card
             _buildInfoCard(
-              title: "Total Pengajuan",
-              value: "2",
-              subtitle: "Semua status",
-              subtitleColor: Colors.blue,
-              icon: Icons.check_circle_outline,
-              iconColor: Colors.blue.shade100,
+              "Total Pengajuan",
+              "2",
+              Colors.blue,
+              "Semua status",
+              Icons.check_circle_outline,
             ),
             const SizedBox(height: 14),
             _buildInfoCard(
-              title: "Halaman Ini",
-              value: "1",
-              subtitle: "Data ditampilkan",
-              subtitleColor: Colors.green,
-              icon: Icons.calendar_today_outlined,
-              iconColor: Colors.green.shade100,
+              "Halaman Ini",
+              "0",
+              Colors.green,
+              "Data ditampilkan",
+              Icons.lock_clock,
             ),
             const SizedBox(height: 14),
             _buildInfoCard(
-              title: "Status Pending",
-              value: "0",
-              subtitle: "Perlu validasi",
-              subtitleColor: Colors.orange,
-              icon: Icons.access_time,
-              iconColor: Colors.orange.shade100,
+              "Status Pending",
+              "0",
+              Colors.orange,
+              "Perlu Validasi",
+              Icons.calendar_today_outlined,
             ),
             const SizedBox(height: 14),
             _buildInfoCard(
-              title: "Total Halaman",
-              value: "1",
-              subtitle: "Navigasi tersedia",
-              subtitleColor: const Color.fromARGB(255, 204, 4, 244),
-              icon: Icons.folder_copy_outlined,
-              iconColor: Colors.purple.shade100,
+              "Total Halaman",
+              "1",
+              Colors.purple,
+              "Navigasi Tersedia",
+              Icons.menu_book_outlined,
             ),
+            const SizedBox(height: 20),
 
-            const SizedBox(height: 28),
-            const Divider(thickness: 0.7, color: Colors.black12),
-            const SizedBox(height: 10),
-
-            const Text(
-              "Daftar Mata Pelajaran",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Kartu-kartu
-            _buildLearningCard("Project Work"),
-            const SizedBox(height: 12),
-            _buildLearningCard("Mobile Apps"),
-            const SizedBox(height: 12),
-            _buildLearningCard("UKK (Uji Kompetensi Keahlian)"),
-            const SizedBox(height: 12),
-            _buildLearningCard("GIM"),
+            // ExpansionTile untuk kategori
+            ...progressData.keys.map((title) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: _buildExpansionTile(context, title),
+              );
+            }).toList(),
           ],
         ),
       ),
     );
   }
 
-  // Widget untuk kartu ringkasan atas
-  Widget _buildInfoCard({
-    required String title,
-    required String value,
-    required String subtitle,
-    required Color subtitleColor,
-    required IconData icon,
-    required Color iconColor,
-  }) {
+  Widget _buildInfoCard(
+    String title,
+    String value,
+    Color color,
+    String subtitle,
+    IconData icon,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black12.withOpacity(0.05),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
       child: Row(
@@ -209,13 +274,13 @@ class ProgresBelajarPage extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.circle, size: 8, color: subtitleColor),
+                    Icon(Icons.circle, size: 8, color: color),
                     const SizedBox(width: 4),
                     Text(
                       subtitle,
                       style: TextStyle(
                         fontSize: 13,
-                        color: subtitleColor,
+                        color: color,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -226,34 +291,36 @@ class ProgresBelajarPage extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: iconColor, shape: BoxShape.circle),
-            child: Icon(icon, color: Colors.black45, size: 28),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            child: Icon(icon, color: Colors.white, size: 26),
           ),
         ],
       ),
     );
   }
 
-  // Widget untuk kartu daftar pelajaran
-  Widget _buildLearningCard(String title) {
+  Widget _buildExpansionTile(BuildContext context, String title) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black12.withOpacity(0.05),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3)),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          dividerColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: ExpansionTile(
+          tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          title: Text(
             title,
             style: const TextStyle(
               fontSize: 17,
@@ -261,53 +328,90 @@ class ProgresBelajarPage extends StatelessWidget {
               color: Colors.black87,
             ),
           ),
-          const SizedBox(height: 6),
-          const Text(
+          subtitle: const Text(
             "Kompetensi dan materi pembelajaran",
-            style: TextStyle(fontSize: 16, color: Colors.black87,
-                fontWeight: FontWeight.w500),
-          ),
-          const SizedBox(height: 12),
-          const Divider(height: 1, color: Colors.black12),
-          const SizedBox(height: 10),
-
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: const [
-                _ColumnHeader("KOMPETENSI"),
-                SizedBox(width: 80),
-                _ColumnHeader("GURU"),
-                SizedBox(width: 80),
-                _ColumnHeader("TANGGAL"),
-                SizedBox(width: 85),
-                _ColumnHeader("STATUS"),
-                SizedBox(width: 80),
-                _ColumnHeader("CATATAN GURU"),
-                SizedBox(width: 80),
-                _ColumnHeader("CATATAN SISWA"),
-              ],
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
+          onExpansionChanged: (expanded) {
+            setState(() {
+              _expanded[title] = expanded;
+            });
+          },
+          trailing: AnimatedRotation(
+            turns: _expanded[title]! ? 0.5 : 0,
+            duration: const Duration(milliseconds: 200),
+            child: const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: Colors.black54,
+              size: 26,
+            ),
+          ),
+          children: [
+            const Divider(height: 1, color: Colors.black12),
+            const SizedBox(height: 10),
 
-class _ColumnHeader extends StatelessWidget {
-  final String label;
-  const _ColumnHeader(this.label);
+            // Isi tabel data vertikal (2 data per kategori)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: progressData[title]!.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: TextStyle(
-        fontSize: 13,
-        color: Colors.grey.shade600,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 0.5,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      constraints: const BoxConstraints(
+                        minHeight: 140, // tinggi stabil
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE3F2FD), // biru muda lembut
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.black12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: item.entries.map((e) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black87, // teks lebih jelas
+                                  height: 1.4,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: "${e.key}: ",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(text: e.value),
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    if (index != progressData[title]!.length - 1)
+                      const Divider(height: 20, color: Colors.black26),
+                  ],
+                );
+              }).toList(),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class JurnalPembiasan extends StatefulWidget {
   const JurnalPembiasan({super.key});
@@ -12,94 +13,14 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(55),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: Colors.black12, width: 0.6),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 22),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.home_outlined,
-                    size: 18,
-                    color: Colors.black45,
-                  ),
-                  const SizedBox(width: 6),
-                  const Icon(
-                    Icons.chevron_right,
-                    size: 18,
-                    color: Colors.black38,
-                  ),
-                  const SizedBox(width: 6),
-                  Builder(
-                    builder: (context) {
-                      double width = MediaQuery.of(context).size.width;
-                      if (width < 500) return const SizedBox.shrink();
-                      return const Text(
-                        "Panduan Penggunaan",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
 
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "Pandu Putra Pratama",
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        "PPLG XII-5",
-                        style: TextStyle(fontSize: 10.5, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 8),
-                  const CircleAvatar(
-                    radius: 15,
-                    backgroundImage: AssetImage("assets/images/f.jpg"),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 20,
-                    color: Colors.black54,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: DropdownAppbar(title: "Jurnal Pembiasaan"),
 
-      // ========================= BODY =========================
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ----_BTN BULAN----
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
@@ -118,39 +39,28 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
                 style: TextStyle(fontSize: 12.5, color: Colors.white),
               ),
             ),
-
             const SizedBox(height: 18),
-
-            // --- Judul A
             const Text(
               "A. Pembiasaan harian",
               style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.w600),
             ),
-
             const SizedBox(height: 10),
-
-            // ---- Legend
             Row(
               children: [
                 _legendDot(Colors.green),
                 const SizedBox(width: 6),
                 const Text("Sudah diisi", style: TextStyle(fontSize: 12)),
-
-                SizedBox(width: 18),
-                _legendDot(Colors.grey.shade400),
+                const SizedBox(width: 18),
+                _legendDot(Colors.grey),
                 const SizedBox(width: 6),
                 const Text("Belum diisi", style: TextStyle(fontSize: 12)),
-
-                SizedBox(width: 18),
+                const SizedBox(width: 18),
                 _legendDot(Colors.red),
                 const SizedBox(width: 6),
                 const Text("Tidak diisi", style: TextStyle(fontSize: 12)),
               ],
             ),
-
             const SizedBox(height: 18),
-
-            // ---- GRID HARI
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -165,7 +75,6 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
                 int day = index + 1;
                 Color border;
                 Widget? icon;
-
                 if (day == 1) {
                   border = Colors.red;
                   icon = const Icon(Icons.close, color: Colors.red, size: 18);
@@ -176,7 +85,6 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
                   border = Colors.grey.shade300;
                   icon = null;
                 }
-
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -202,76 +110,69 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
                 );
               },
             ),
-
             const SizedBox(height: 28),
 
-            // =================== BAGIAN B =====================
-            const Text(
-              "B. Pekerjaan yang dilakukan",
-              style: TextStyle(fontSize: 16.5, fontWeight: FontWeight.w600),
+            // Section B
+            _sectionTile(
+              title: "B. Pekerjaan yang dilakukan",
+              children: [
+                _jobCard(
+                  pekerjaan: "Membuat UI Dashboard Absensi",
+                  tanggal: "2 Desember 2025",
+                  saksi: "Pak Deni",
+                ),
+                _jobCard(
+                  pekerjaan: "Menambahkan validasi login",
+                  tanggal: "3 Desember 2025",
+                  saksi: "Bu Siti",
+                ),
+                _addButton("+ Tambah Pekerjaan"),
+              ],
             ),
+            const SizedBox(height: 12),
 
-            const SizedBox(height: 10),
+            // Section C
+            _sectionTile(
+              title: "C. Materi yang dipelajari",
+              children: [
+                _materiCard(
+                  materi: "Flutter Layout Basics",
+                  tanggal: "3 Desember 2025",
+                  status: "Approved",
+                  color: Colors.green,
+                ),
+                _materiCard(
+                  materi: "State Management (Provider)",
+                  tanggal: "4 Desember 2025",
+                  status: "Pending",
+                  color: Colors.orange,
+                ),
+                _addButton("+ Tambah Materi"),
+              ],
+            ),
+            const SizedBox(height: 12),
 
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black12),
-              ),
-              child: Column(
-                children: [
-                  // Header tabel
-                  Container(
-                    decoration: const BoxDecoration(color: Color(0xFFE2E8F0)),
-                    child: Row(
-                      children: [
-                        _tableCellHeader("Pekerjaan", flex: 2),
-                        _tableCellHeader("Tgl"),
-                        _tableCellHeader("Saksi"),
-                      ],
-                    ),
-                  ),
-
-                  // isi kosong
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 12,
-                    ),
-                    child: const Text(
-                      "Belum ada pekerjaan yang diinput.",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black54,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ),
-
-                  const Divider(height: 0),
-
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 12,
-                      ),
-                      child: const Text(
-                        "+ Tambah Pekerjaan",
-                        style: TextStyle(
-                          fontSize: 13.5,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            // Section D
+            _sectionTile(
+              title: "D. Poin",
+              children: [
+                _poinCard(
+                  kategori: "(5) Mengerjakan project / update progress",
+                  poin: {"M1": "5", "M2": "4", "M3": "3", "M4": "5"},
+                ),
+                _poinCard(
+                  kategori: "(1–5) Poin dari laporan pengetahuan materi",
+                  poin: {"M1": "2", "M2": "3", "M3": "1", "M4": "4"},
+                ),
+                _poinCard(
+                  kategori: "Jumlah poin minggu ini",
+                  poin: {"M1": "4", "M2": "5", "M3": "7", "M4": "2"},
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
+                _summaryRow("Jumlah ceklist pembiasaan", "1"),
+                _summaryRow("Total keseluruhan poin", "15"),
+              ],
             ),
           ],
         ),
@@ -280,26 +181,219 @@ class _JurnalPembiasanState extends State<JurnalPembiasan> {
   }
 }
 
-// ===================== HELPER WIDGET ======================
+// ===================== HELPER WIDGETS ======================
 
-Widget _legendDot(Color color) {
-  return Container(
-    width: 12,
-    height: 12,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-  );
-}
+Widget _legendDot(Color color) => Container(
+  width: 12,
+  height: 12,
+  decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+);
 
-Widget _tableCellHeader(String text, {int flex = 1}) {
-  return Expanded(
-    flex: flex,
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      alignment: Alignment.center,
+Widget _sectionTile({required String title, required List<Widget> children}) =>
+    Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12.withOpacity(0.05),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ExpansionTile(
+        tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        collapsedIconColor: Colors.black54,
+        iconColor: Colors.blueAccent,
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.black87,
+          ),
+        ),
+        childrenPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 8,
+        ),
+        children: children,
+      ),
+    );
+
+// ===================== CARD LISTS =====================
+
+Widget _jobCard({
+  required String pekerjaan,
+  required String tanggal,
+  required String saksi,
+}) => Container(
+  margin: const EdgeInsets.only(bottom: 10),
+  padding: const EdgeInsets.all(12),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(color: Colors.black12),
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        pekerjaan,
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14.5),
+      ),
+      const SizedBox(height: 6),
+      Row(
+        children: [
+          const Icon(Icons.calendar_today, size: 13, color: Colors.black54),
+          const SizedBox(width: 4),
+          Text(tanggal, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+      const SizedBox(height: 4),
+      Row(
+        children: [
+          const Icon(Icons.person_outline, size: 13, color: Colors.black54),
+          const SizedBox(width: 4),
+          Text("Saksi: $saksi", style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+    ],
+  ),
+);
+
+Widget _materiCard({
+  required String materi,
+  required String tanggal,
+  required String status,
+  required Color color,
+}) => Container(
+  margin: const EdgeInsets.only(bottom: 10),
+  padding: const EdgeInsets.all(12),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(color: Colors.black12),
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        materi,
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14.5),
+      ),
+      const SizedBox(height: 6),
+      Row(
+        children: [
+          const Icon(Icons.calendar_today, size: 13, color: Colors.black54),
+          const SizedBox(width: 4),
+          Text(tanggal, style: const TextStyle(fontSize: 12)),
+        ],
+      ),
+      const SizedBox(height: 6),
+      Row(
+        children: [
+          const Text("Status: ", style: TextStyle(fontSize: 12)),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2.5),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              status,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
+);
+
+Widget _poinCard({
+  required String kategori,
+  required Map<String, String> poin,
+}) => Container(
+  margin: const EdgeInsets.only(bottom: 10),
+  padding: const EdgeInsets.all(12),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(color: Colors.black12),
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        kategori,
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13.5),
+      ),
+      const SizedBox(height: 8),
+      Wrap(
+        spacing: 10,
+        runSpacing: 6,
+        children: poin.entries
+            .map(
+              (e) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  "${e.key}: ${e.value} poin",
+                  style: const TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    ],
+  ),
+);
+
+Widget _summaryRow(String label, String value) => Padding(
+  padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(label, style: const TextStyle(fontSize: 13)),
+      Text(
+        value,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: Colors.blue,
+        ),
+      ),
+    ],
+  ),
+);
+
+Widget _addButton(String text) => Align(
+  alignment: Alignment.centerLeft,
+  child: Padding(
+    padding: const EdgeInsets.only(top: 6),
+    child: InkWell(
+      onTap: () {},
       child: Text(
         text,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+        style: const TextStyle(
+          fontSize: 13.5,
+          color: Colors.blueAccent,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
-  );
-}
+  ),
+);

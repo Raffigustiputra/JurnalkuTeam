@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jurnalku_tw/DetailPanduan/catatansikap_saya.dart';
 import 'package:jurnalku_tw/DetailPanduan/ganti_password.dart';
 import 'package:jurnalku_tw/DetailPanduan/kelengkapan_profile.dart';
 import 'package:jurnalku_tw/DetailPanduan/mengelola_porto.dart';
+import 'package:jurnalku_tw/DetailPanduan/mengelola_serti.dart';
 import 'package:jurnalku_tw/DetailPanduan/mengisi_jurnal.dart';
 import 'package:jurnalku_tw/DetailPanduan/unggah_profile.dart';
+import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class PanduanPenggunaPage extends StatelessWidget {
   const PanduanPenggunaPage({super.key});
@@ -12,80 +15,7 @@ class PanduanPenggunaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: Colors.black12, width: 0.6),
-            ),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 22),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.home_outlined, size: 18, color: Colors.black45),
-                  SizedBox(width: 6),
-                  Icon(Icons.chevron_right, size: 18, color: Colors.black38),
-                  SizedBox(width: 6),
-                  Builder(
-                    builder: (context) {
-                      double width = MediaQuery.of(context).size.width;
-                      // kalau layar kecil, tulisan nya di sembunyiin
-                      if (width < 500) {
-                        return SizedBox.shrink();
-                      }
-                      return Text(
-                        "Panduan Penggunaan",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Pandu Putra Pratama",
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        "PPLG XII-5",
-                        style: TextStyle(fontSize: 10.5, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-                  SizedBox(width: 8),
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundImage: AssetImage("assets/images/f.jpg"),
-                  ),
-                  SizedBox(width: 4),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 20,
-                    color: Colors.black54,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: DropdownAppbar(title: "Panduan Pengguna",),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 26, vertical: 18),
         child: Column(
@@ -212,14 +142,28 @@ class PanduanPenggunaPage extends StatelessWidget {
               icon: Icons.check_circle,
               title: "Mengelola Sertifikat",
               subtitle: "Panduan untuk menambah, edit, dan hapus sertifikat",
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MengelolaSertifikat(),
+                  ),
+                );
+              },
             ),
 
             _menuItem(
               icon: Icons.error_outlined,
               title: "Catatan Sikap Saya",
               subtitle: "Panduan untuk melihat dan memahami catatan sikap",
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CatatanSikapSaya(),
+                  ),
+                );
+              },
             ),
           ],
         ),

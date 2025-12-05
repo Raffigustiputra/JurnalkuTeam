@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,66 +17,14 @@ class _ProfileState extends State<Profile> {
 
   int _selectedTab = 0;
 
-  PreferredSizeWidget _buildCustomAppBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Row(
-          children: const [
-            SizedBox(width: 12),
-            Icon(Icons.home, size: 24, color: Colors.black45),
-            SizedBox(width: 6),
-          ],
-        ),
-      ),
-      leadingWidth: 150,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: const [
-              Text(
-                'Raffi Gusti Putra',
-                style: TextStyle(color: Colors.black, fontSize: 16),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'PPLG XII-5',
-                style: TextStyle(color: Color(0xFF8D8F93), fontSize: 12),
-              ),
-            ],
-          ),
-          const SizedBox(width: 10),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 1),
-            ),
-            child: ClipOval(
-              child: Image.asset(
-                _profileImagePath,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.person, color: Colors.grey),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+PreferredSizeWidget _buildCustomAppBar(BuildContext context) {
+  return const PreferredSize(
+    preferredSize: Size.fromHeight(55),
+    child: DropdownAppbar(title: "Profile"),
+  );
+}
+
+
 
   Widget _buildProfileHeader() {
     return Column(

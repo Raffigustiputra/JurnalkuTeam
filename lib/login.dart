@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jurnalku_tw/dashboard.dart';
 
 class InfoCard extends StatelessWidget {
   final IconData icon;
@@ -205,7 +206,12 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const Dashboard()),
+                        );
+                      },
                       child: const Text(
                         "Masuk",
                         style: TextStyle(fontSize: 17, color: Colors.white),
@@ -239,7 +245,11 @@ class _LoginState extends State<Login> {
                 children: const [
                   Text(
                     "Menyatukan Upaya untuk Kemajuan \n Siswa",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),

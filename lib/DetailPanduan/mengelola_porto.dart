@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class MengelolaportofolioPage extends StatelessWidget {
   const MengelolaportofolioPage({super.key});
@@ -7,80 +8,7 @@ class MengelolaportofolioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(55),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: Colors.black12, width: 0.6),
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 22),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.home_outlined, size: 18, color: Colors.black45),
-                  SizedBox(width: 6),
-                  Icon(Icons.chevron_right, size: 18, color: Colors.black38),
-                  SizedBox(width: 6),
-                  Builder(
-                    builder: (context) {
-                      double width = MediaQuery.of(context).size.width;
-                      // kalau layar kecil, tulisan nya di sembunyiin
-                      if (width < 500) {
-                        return SizedBox.shrink();
-                      }
-                      return Text(
-                        "Panduan Penggunaan",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "Pandu Putra Pratama",
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        "PPLG XII-5",
-                        style: TextStyle(fontSize: 10.5, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 8),
-                  const CircleAvatar(
-                    radius: 15,
-                    backgroundImage: AssetImage("assets/images/f.jpg"),
-                  ),
-                  const SizedBox(width: 4),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 20,
-                    color: Colors.black54,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: DropdownAppbar(title: "Mengelola Portofolio"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 18),
         child: Column(
