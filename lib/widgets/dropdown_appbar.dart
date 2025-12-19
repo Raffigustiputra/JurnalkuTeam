@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/dashboard.dart';
+import 'package:jurnalku_tw/pages/dashboard.dart';
 
 class DropdownAppbar extends StatelessWidget implements PreferredSizeWidget {
   final double height;

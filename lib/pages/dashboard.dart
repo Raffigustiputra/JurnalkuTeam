@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/catatan_sikap.dart';
-import 'package:jurnalku_tw/jurnal_pembiasan.dart';
-import 'package:jurnalku_tw/permintaan_saksi.dart';
-import 'package:jurnalku_tw/profile.dart';
-import 'package:jurnalku_tw/progresbelajar_page.dart';
+import 'package:jurnalku_tw/pages/catatan_sikap.dart';
+import 'package:jurnalku_tw/pages/jurnal_pembiasan.dart';
+import 'package:jurnalku_tw/pages/permintaan_saksi.dart';
+import 'package:jurnalku_tw/pages/profile.dart';
+import 'package:jurnalku_tw/pages/progresbelajar_page.dart';
 import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class Dashboard extends StatelessWidget {

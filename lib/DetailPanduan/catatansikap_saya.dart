@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
+import 'package:jurnalku_tw/pages/panduan-pengguna.dart';
 import 'package:jurnalku_tw/widgets/dropdown_appbar.dart';
 
 class CatatanSikapSaya extends StatelessWidget {

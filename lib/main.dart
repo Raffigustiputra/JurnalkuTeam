@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:jurnalku_tw/catatan_sikap.dart';
-import 'package:jurnalku_tw/dashboard.dart';
-import 'package:jurnalku_tw/pengaturan_akun.dart';
-import 'package:jurnalku_tw/profile.dart';
-import 'package:jurnalku_tw/explore_page.dart';
-import 'package:jurnalku_tw/jurnal_pembiasan.dart';
-import 'package:jurnalku_tw/progresbelajar_page.dart';
-import 'package:jurnalku_tw/login.dart';
-import 'package:jurnalku_tw/panduan-pengguna.dart';
-import 'package:jurnalku_tw/permintaan_saksi.dart';
-import 'package:jurnalku_tw/explore_login.dart';
-
+import 'package:jurnalku_tw/pages/catatan_sikap.dart';
+import 'package:jurnalku_tw/pages/dashboard.dart';
+import 'package:jurnalku_tw/pages/pengaturan_akun.dart';
+import 'package:jurnalku_tw/pages/profile.dart';
+import 'package:jurnalku_tw/pages/explore_page.dart';
+import 'package:jurnalku_tw/pages/jurnal_pembiasan.dart';
+import 'package:jurnalku_tw/pages/progresbelajar_page.dart';
+import 'package:jurnalku_tw/pages/login.dart';
+import 'package:jurnalku_tw/pages/panduan-pengguna.dart';
+import 'package:jurnalku_tw/pages/permintaan_saksi.dart';
+import 'package:jurnalku_tw/pages/explore_login.dart';
 
 void main() {
   runApp(const MyApp());
